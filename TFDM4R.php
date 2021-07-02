@@ -64,7 +64,7 @@ class Flatfile
     {
         
         if(!preg_match('/((DELETE) FROM (\w+) WHERE (\w+) (=|<|>) (.+)|(SELECT) (\w+) FROM (\w+)(?: WHERE (\w+) (=|<|>) (.+))?|(UPDATE) (\w+) FROM (\w+) WHERE (\w+) (=|<|>) (.+) VALUE (.+)|INSERT INTO (\w+))/', $query, $match)){
-            throw new Exception('Wrong 3SFDM query');
+            throw new Exception('Wrong TFDM4R query');
         }
         
         if($match[2]){//DELETE
