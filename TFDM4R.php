@@ -62,11 +62,10 @@ class Flatfile
      */
     public function query(string $query, ?array $data = null): ?array
     {
-        
+        $this->result = null;
         if(!preg_match('/((DELETE) FROM (\w+) WHERE (\w+) (=|<|>) (.+)|(SELECT) (\w+) FROM (\w+)(?: WHERE (\w+) (=|<|>) (.+))?|(UPDATE) (\w+) FROM (\w+) WHERE (\w+) (=|<|>) (.+) VALUE (.+)|INSERT INTO (\w+))/', $query, $match)){
             throw new Exception('Wrong TFDM4R query');
         }
-        
         if($match[2]){//DELETE
             $this->select($match[2], $match[3], $match[4], $match[5], $match[6], null);
         }elseif($match[7]){//SELECT
@@ -92,7 +91,7 @@ class Flatfile
                         if($element == 'DELETE'){unset($this->database[$table][$key]);
                         }else{
                             $new ? $this->database[$table][$key][$element] = $new :
-                            $this->result[$key] = $element == 'ALL' ? $this->database[$table][$key] : $this->database[$table][$key][$element];
+                            $this->result[] = $element == 'ALL' ? $this->database[$table][$key] : $this->database[$table][$key][$element];
                         }
                     }
                 }
@@ -103,7 +102,7 @@ class Flatfile
                         if($element == 'DELETE'){unset($this->database[$table][$key]);
                         }else{
                             $new ? $this->database[$table][$key][$element] = $new :
-                            $this->result[$key] = $element == 'ALL' ? $this->database[$table][$key] : $this->database[$table][$key][$element];
+                            $this->result[] = $element == 'ALL' ? $this->database[$table][$key] : $this->database[$table][$key][$element];
                         }
                     }
                 }
@@ -114,7 +113,7 @@ class Flatfile
                         if($element == 'DELETE'){unset($this->database[$table][$key]);
                         }else{
                             $new ? $this->database[$table][$key][$element] = $new :
-                            $this->result[$key] = $element == 'ALL' ? $this->database[$table][$key] : $this->database[$table][$key][$element];
+                            $this->result[] = $element == 'ALL' ? $this->database[$table][$key] : $this->database[$table][$key][$element];
                         }
                     }
                 }
