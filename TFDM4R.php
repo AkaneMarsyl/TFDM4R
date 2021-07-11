@@ -26,7 +26,7 @@ class Flatfile
     public function __construct($database)
     {
         $this->path = $database;
-        $this->database = unserialize(file_get_contents($database));
+        $this->database = unserialize(base64_decode(file_get_contents($database)));
     }
 
     /**
@@ -52,7 +52,7 @@ class Flatfile
 
     public function save()
     {
-        file_put_contents($this->path, serialize($this->database));
+        file_put_contents($this->path, base64_encode(serialize($this->database)));
     }
 
     /**
